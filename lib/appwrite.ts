@@ -1,21 +1,27 @@
 import { SignInForm } from '@/app/(auth)/sign-in';
 import { SignUpForm } from '@/app/(auth)/sign-up';
-import { Account, Avatars, Client, Databases, ID, Query } from 'react-native-appwrite';
+import { Account, Avatars, Client, Databases, ID, Query, Storage } from 'react-native-appwrite';
 export const appwriteConfig ={
     endpoint:process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
     platform:"com.company.foodorder",
     projectId:process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID,
     databaseId:'68d177bb002675c010d4',
-    usedTableId:"user"
+    usedTableId:"user",
+    categoriesTable:"categories",
+    menuTable:"menu",
+    customizationTable:"customization",
+    menu_customizationTable:"menu_customization",
+    assetBucket:"68e9214f003818e0b467"
 }
 
 export const client = new Client()
-
 client.setEndpoint(appwriteConfig.endpoint!)
       .setProject(appwriteConfig.projectId!)
       .setPlatform(appwriteConfig.platform)
 export const account = new Account(client)
 export const databases = new Databases(client)
+export const storage = new Storage(client)
+
 const avatars = new Avatars(client)
 
 export const createUser = async({email,password,name}:SignUpForm)=>{
@@ -31,20 +37,22 @@ export const createUser = async({email,password,name}:SignUpForm)=>{
                 accountId:newAccount.$id,
                 email,
                 name,
-                avatar:avatarUrl
+                avatar:avatarUrl,
             }
         )
         return newUser;
     } catch (error) {
+        console.log('error while creating new user', error)
         throw new Error(error as string)
     }
 }
 
 export const signIn = async ({email,password}:SignInForm) =>{
     try {
+        console.log('account',account)
         const session =await account.createEmailPasswordSession(email,password)
-
     } catch (error) {
+        console.log('error while sign in',error)
         throw new Error(error as string)
     }
 }

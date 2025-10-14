@@ -9,7 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import "../globals.css";
 export default function Index() {
   const {user} = useAuthStore();
-  if(user) console.log(user)
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-between flex-row w-full my-5 px-5">

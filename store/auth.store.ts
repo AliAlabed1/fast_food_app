@@ -25,7 +25,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   fetchAuthenticatedUser:async()=>{
     set({isLoading:true});
     try {
-        const user = getCurrUser();
+        const user =await getCurrUser();
+        console.log('currentUser',user)
         if(user){
             set({isAuthenticated:true,user:user as User})
         } else{

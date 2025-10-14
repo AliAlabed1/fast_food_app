@@ -12,14 +12,13 @@ interface TabIconProps{
 }
 
 const TabBarIcon = ({focused,icon,title}:TabIconProps)=>(
-  <View className='tab-icon !ml-5 !mr-5'>
-    <Image source={icon} className='!w-[35px] !h-[35px]' resizeMode='contain' tintColor={focused ? '#FE8C00':'#5D5F6D'}/>
+  <View className='tab-icon !mb-3'>
+    <Image source={icon} className='!w-[25px] !h-[25px]' resizeMode='contain' tintColor={focused ? '#FE8C00':'#5D5F6D'}/>
     <Text className={cn('text-sm font-bold',focused?'text-primary':'text-gray-200')}>{title}</Text>
   </View>
 )
 export default function TabLayout() {
   const {isAuthenticated} = useAuthStore();
-  console.log(isAuthenticated)
   if(!isAuthenticated) return <Redirect href={'/sign-in'}/>
   return (
     <Tabs
@@ -32,7 +31,8 @@ export default function TabLayout() {
           borderBottomLeftRadius:50,
           borderBottomRightRadius:50,
           marginHorizontal:20,
-          height:80,
+          paddingBottom:'auto',
+          height:60,
           position:"absolute",
           bottom:40,
           backgroundColor:"white",
