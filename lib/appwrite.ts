@@ -75,3 +75,33 @@ export const getCurrUser = async()=>{
         throw new Error(error as string)
     }
 }
+
+export const getMenu = async({category,query}:{category:string,query:string})=>{
+    try {
+        const queries:string[] = [];
+        if(category) queries.push(Query.equal('categories',category));
+        if(query) queries.push(Query.search('name',query));
+        const menu = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.menuTable,
+            queries
+        )
+        if(!menu) throw Error;
+        return menu.documents
+    } catch (error) {
+        throw new Error(error as string)
+    }
+}
+
+export const getCategories = async()=>{
+    try {
+        const categories = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.categoriesTable,
+        )
+        if(!categories) throw Error;
+        return categories.documents
+    } catch (error) {
+        throw new Error(error as string)
+    }
+}
