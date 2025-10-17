@@ -21,3 +21,9 @@ export interface MenuCustomization{
     $id:string;
     menu:string;
 }
+
+export interface Category{
+    $id:string;
+    name:string;
+    description:string;
+}

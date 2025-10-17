@@ -13,7 +13,7 @@ const MenuCard = ({item:{image_url,name,price}}:{item:any}) => {
       <TouchableOpacity onPress={()=>{}}>
         <Text className='paragraph-semibold text-primary'>Add to Cart</Text>
       </TouchableOpacity>
-    </TouchableOpacity>
+    </TouchableOpacity> 
   )
 }
 
