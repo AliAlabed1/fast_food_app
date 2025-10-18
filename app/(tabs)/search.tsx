@@ -1,15 +1,15 @@
-import CartButton from '@/components/CartButton'
-import Filter from '@/components/Filter'
-import MenuCard from '@/components/MenuCard'
-import Searchbar from '@/components/Searchbar'
-import { getCategories, getMenu } from '@/lib/appwrite'
-import useAppWrite from '@/lib/useAppWrite'
-import { Category } from '@/types'
 import cn from 'clsx'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useEffect } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import CartButton from '../../components/CartButton'
+import Filter from '../../components/Filter'
+import MenuCard from '../../components/MenuCard'
+import Searchbar from '../../components/Searchbar'
+import { getCategories, getMenu } from '../../lib/appwrite'
+import useAppWrite from '../../lib/useAppWrite'
+import { Category } from '../../types'
 const Search = () => {
   const {category,query} = useLocalSearchParams<{query:string,category:string}>()
   const {data,loading,error,refetch} = useAppWrite({

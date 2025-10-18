@@ -1,5 +1,5 @@
-import { SignInForm } from '@/app/(auth)/sign-in';
-import { SignUpForm } from '@/app/(auth)/sign-up';
+import { SignInForm } from '../app/(auth)/sign-in';
+import { SignUpForm } from '../app/(auth)/sign-up';
 import { Account, Avatars, Client, Databases, ID, Query, Storage } from 'react-native-appwrite';
 export const appwriteConfig ={
     endpoint:process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,

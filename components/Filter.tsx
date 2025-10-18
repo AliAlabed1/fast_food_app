@@ -1,8 +1,8 @@
-import { Category } from '@/types'
 import cn from 'clsx'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useState } from 'react'
 import { FlatList, Text, TouchableOpacity } from 'react-native'
+import { Category } from '../types'
 const Filter = ({categories}:{categories:Category[]}) => {
   const searchParams = useLocalSearchParams();
   const [active,setActive] = useState<string>(searchParams.category as string || 'all');

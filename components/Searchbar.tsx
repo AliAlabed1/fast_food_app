@@ -1,7 +1,7 @@
-import { images } from '@/constants'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useState } from 'react'
 import { Image, TextInput, TouchableOpacity, View } from 'react-native'
+import { images } from '../constants'
 
 const Searchbar = () => { 
   const params = useLocalSearchParams<{query?:string}>()

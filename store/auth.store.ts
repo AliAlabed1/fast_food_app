@@ -1,4 +1,4 @@
-import { getCurrUser } from '@/lib/appwrite';
+import { getCurrUser } from '../lib/appwrite';
 import { User } from '@sentry/react-native';
 import { create } from 'zustand';
 

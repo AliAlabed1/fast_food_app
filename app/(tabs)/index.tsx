@@ -1,10 +1,10 @@
-import CartButton from "@/components/CartButton";
-import { images, offers } from "@/constants";
-import { useAuthStore } from "@/store/auth.store";
 import cn from "clsx";
 import React from "react";
 import { FlatList, Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import CartButton from "../../components/CartButton";
+import { images, offers } from "../../constants";
+import { useAuthStore } from "../../store/auth.store";
 import "../globals.css";
 export default function Index() {
   const {user} = useAuthStore();

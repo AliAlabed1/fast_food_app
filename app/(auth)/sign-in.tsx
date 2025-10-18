@@ -1,9 +1,9 @@
-import CustomButton from '@/components/CustomButton'
-import CustomInput from '@/components/CustomInput'
-import { signIn } from '@/lib/appwrite'
 import { Link, router } from 'expo-router'
 import React, { useState } from 'react'
 import { Alert, Text, View } from 'react-native'
+import CustomButton from '../../components/CustomButton'
+import CustomInput from '../../components/CustomInput'
+import { signIn } from '../../lib/appwrite'
 
 
 export interface SignInForm{
