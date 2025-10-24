@@ -1,6 +1,6 @@
+import { Account, Avatars, Client, Databases, ID, Query, Storage } from 'react-native-appwrite';
 import { SignInForm } from '../app/(auth)/sign-in';
 import { SignUpForm } from '../app/(auth)/sign-up';
-import { Account, Avatars, Client, Databases, ID, Query, Storage } from 'react-native-appwrite';
 export const appwriteConfig ={
     endpoint:process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
     platform:"com.company.foodorder",
@@ -103,5 +103,43 @@ export const getCategories = async()=>{
         return categories.documents
     } catch (error) {
         throw new Error(error as string)
+    }
+}
+
+export const getMenuCustomizations = async(menuId:string)=>{
+    try {
+        if(!menuId ) return [];
+        
+        // Fetch menu_customization documents for this menu item
+        const menuCustomizations = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.menu_customizationTable,
+            [
+                Query.equal('menu', menuId)
+            ]
+        )
+        
+        if(!menuCustomizations || menuCustomizations.documents.length === 0) return [];
+        
+        // Extract customization IDs from the relationship field
+        const customizationIds = menuCustomizations.documents.map(doc => doc.customizations);
+        
+        if(customizationIds.length === 0) return [];
+        
+        // Fetch the actual customization documents using the IDs
+        const customizations = await databases.listDocuments(
+            appwriteConfig.databaseId,
+            appwriteConfig.customizationTable,
+            [
+                Query.equal('$id', customizationIds)
+            ]
+        )
+        
+        return customizations.documents
+    } catch (error) {
+        console.log('error fetching customizations', error)
+        // Return dummy data for now
+        const dummyData = require('./data').default;
+        return dummyData.customizations;
     }
 }

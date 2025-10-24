@@ -1,15 +1,16 @@
 import cn from 'clsx'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useEffect } from 'react'
-import { FlatList, Text, View } from 'react-native'
+import { FlatList, Image, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import CartButton from '../../components/CartButton'
 import Filter from '../../components/Filter'
 import MenuCard from '../../components/MenuCard'
 import Searchbar from '../../components/Searchbar'
+import { images } from '../../constants'
 import { getCategories, getMenu } from '../../lib/appwrite'
 import useAppWrite from '../../lib/useAppWrite'
-import { Category } from '../../types'
+import { Category, MenuItem } from '../../types'
 const Search = () => {
   const {category,query} = useLocalSearchParams<{query:string,category:string}>()
   const {data,loading,error,refetch} = useAppWrite({
@@ -38,7 +39,7 @@ const Search = () => {
           return(
             <View className={cn('flex-1 max-w-[48%]',isFirstRightColItem ? 'mt-0' : 'mt-10')}>
               <MenuCard 
-                item={item}
+                item={item as unknown as MenuItem}
               />
             </View>
           )
@@ -64,7 +65,13 @@ const Search = () => {
             </View>
           )
         }}
-        ListEmptyComponent={()=>!loading && <Text>No Results</Text>}
+        ListEmptyComponent={()=>!loading && 
+          <View className='flex-center flex-1'>
+            <Image source={images.emptyState} className='size-10' resizeMode='contain' />
+            <Text className='paragraph-semibold text-dark-100'>Nothing matching your search</Text>
+            <Text className=' text-gray-100'>Try again with different keywords</Text>
+          </View>
+        }
       />
     </SafeAreaView>
   )

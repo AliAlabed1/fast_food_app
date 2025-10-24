@@ -1,6 +1,7 @@
 import { File } from "expo-file-system";
 import { ID } from "react-native-appwrite";
 
+import { MenuItem } from "@/types";
 import { appwriteConfig, databases, storage } from "./appwrite";
 import dummyData from "./data";
 
@@ -15,17 +16,6 @@ interface Customization {
     type: "topping" | "side" | "size" | "crust" | string; // extend as needed
 }
 
-interface MenuItem {
-    name: string;
-    description: string;
-    image_url: string;
-    price: number;
-    rating: number;
-    calories: number;
-    protein: number;
-    categories: string;
-    menuCustomization: string[]; // list of customization names
-}
 
 interface DummyData {
     categories: Category[];
@@ -141,6 +131,10 @@ async function seed(): Promise<void> {
                 calories: item.calories,
                 protein: item.protein,
                 categories: categoryMap[item.categories],
+                menuCustomization: item.menuCustomization.map((cus) => customizationMap[cus]),
+                bunType: item.bunType,
+                deliveryFee: item.deliveryFee,
+                preparingTime: item.preparingTime,
             }
         );
 

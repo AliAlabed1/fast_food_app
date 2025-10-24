@@ -10,30 +10,31 @@ const dummyData = {
 
     customizations: [
         // Toppings
-        { name: "Extra Cheese", price: 25, type: "topping" },
-        { name: "Jalapeños", price: 20, type: "topping" },
-        { name: "Onions", price: 10, type: "topping" },
-        { name: "Olives", price: 15, type: "topping" },
-        { name: "Mushrooms", price: 18, type: "topping" },
-        { name: "Tomatoes", price: 10, type: "topping" },
-        { name: "Bacon", price: 30, type: "topping" },
-        { name: "Avocado", price: 35, type: "topping" },
+        { $id: "custom-1", name: "Extra Cheese", price: 25, type: "topping" },
+        { $id: "custom-2", name: "Jalapeños", price: 20, type: "topping" },
+        { $id: "custom-3", name: "Onions", price: 10, type: "topping" },
+        { $id: "custom-4", name: "Olives", price: 15, type: "topping" },
+        { $id: "custom-5", name: "Mushrooms", price: 18, type: "topping" },
+        { $id: "custom-6", name: "Tomatoes", price: 10, type: "topping" },
+        { $id: "custom-7", name: "Bacon", price: 30, type: "topping" },
+        { $id: "custom-8", name: "Avocado", price: 35, type: "topping" },
 
         // Sides
-        { name: "Coke", price: 30, type: "side" },
-        { name: "Fries", price: 35, type: "side" },
-        { name: "Garlic Bread", price: 40, type: "side" },
-        { name: "Chicken Nuggets", price: 50, type: "side" },
-        { name: "Iced Tea", price: 28, type: "side" },
-        { name: "Salad", price: 33, type: "side" },
-        { name: "Potato Wedges", price: 38, type: "side" },
-        { name: "Mozzarella Sticks", price: 45, type: "side" },
-        { name: "Sweet Corn", price: 25, type: "side" },
-        { name: "Choco Lava Cake", price: 42, type: "side" },
+        { $id: "custom-9", name: "Coke", price: 30, type: "side" },
+        { $id: "custom-10", name: "Fries", price: 35, type: "side" },
+        { $id: "custom-11", name: "Garlic Bread", price: 40, type: "side" },
+        { $id: "custom-12", name: "Chicken Nuggets", price: 50, type: "side" },
+        { $id: "custom-13", name: "Iced Tea", price: 28, type: "side" },
+        { $id: "custom-14", name: "Salad", price: 33, type: "side" },
+        { $id: "custom-15", name: "Potato Wedges", price: 38, type: "side" },
+        { $id: "custom-16", name: "Mozzarella Sticks", price: 45, type: "side" },
+        { $id: "custom-17", name: "Sweet Corn", price: 25, type: "side" },
+        { $id: "custom-18", name: "Choco Lava Cake", price: 42, type: "side" },
     ],
 
     menu: [
         {
+            $id: "item-0",
             name: "Classic Cheeseburger",
             description: "Beef patty, cheese, lettuce, tomato",
             image_url:
@@ -44,8 +45,12 @@ const dummyData = {
             protein: 25,
             categories: "Burgers",
             menuCustomization: ["Extra Cheese", "Coke", "Fries", "Onions", "Bacon"],
+            bunType: "Sesame Bun",
+            deliveryFee: 3.99,
+            preparingTime: 12,
         },
         {
+            $id: "item-1",
             name: "Pepperoni Pizza",
             description: "Loaded with cheese and pepperoni slices",
             image_url:
@@ -62,8 +67,12 @@ const dummyData = {
                 "Coke",
                 "Olives",
             ],
+            bunType: "Thin Crust",
+            deliveryFee: 4.99,
+            preparingTime: 18,
         },
         {
+            $id: "item-2",
             name: "Bean Burrito",
             description: "Stuffed with beans, rice, salsa",
             image_url:
@@ -74,8 +83,12 @@ const dummyData = {
             protein: 18,
             categories: "Burritos",
             menuCustomization: ["Jalapeños", "Iced Tea", "Fries", "Salad"],
+            bunType: "Flour Tortilla",
+            deliveryFee: 3.99,
+            preparingTime: 15,
         },
         {
+            $id: "item-3",
             name: "BBQ Bacon Burger",
             description: "Smoky BBQ sauce, crispy bacon, cheddar",
             image_url:
@@ -86,8 +99,12 @@ const dummyData = {
             protein: 29,
             categories: "Burgers",
             menuCustomization: ["Onions", "Fries", "Coke", "Bacon", "Avocado"],
+            bunType: "Brioche Bun",
+            deliveryFee: 4.99,
+            preparingTime: 15,
         },
         {
+            $id: "item-4",
             name: "Chicken Caesar Wrap",
             description: "Grilled chicken, lettuce, Caesar dressing",
             image_url:
@@ -98,8 +115,12 @@ const dummyData = {
             protein: 28,
             categories: "Wraps",
             menuCustomization: ["Extra Cheese", "Coke", "Potato Wedges", "Tomatoes"],
+            bunType: "Flour Tortilla",
+            deliveryFee: 3.49,
+            preparingTime: 12,
         },
         {
+            $id: "item-5",
             name: "Grilled Veggie Sandwich",
             description: "Roasted veggies, pesto, cheese",
             image_url:
@@ -110,8 +131,12 @@ const dummyData = {
             protein: 19,
             categories: "Sandwiches",
             menuCustomization: ["Mushrooms", "Olives", "Mozzarella Sticks", "Iced Tea"],
+            bunType: "Artisan Bread",
+            deliveryFee: 3.49,
+            preparingTime: 10,
         },
         {
+            $id: "item-6",
             name: "Double Patty Burger",
             description: "Two juicy beef patties and cheese",
             image_url:
@@ -128,8 +153,12 @@ const dummyData = {
                 "Coke",
                 "Chicken Nuggets",
             ],
+            bunType: "Sesame Bun",
+            deliveryFee: 4.99,
+            preparingTime: 15,
         },
         {
+            $id: "item-7",
             name: "Paneer Tikka Wrap",
             description: "Spicy paneer, mint chutney, veggies",
             image_url:
@@ -140,8 +169,12 @@ const dummyData = {
             protein: 20,
             categories: "Wraps",
             menuCustomization: ["Jalapeños", "Tomatoes", "Salad", "Fries", "Iced Tea"],
+            bunType: "Spinach Tortilla",
+            deliveryFee: 3.49,
+            preparingTime: 15,
         },
         {
+            $id: "item-8",
             name: "Mexican Burrito Bowl",
             description: "Rice, beans, corn, guac, salsa",
             image_url:
@@ -152,8 +185,12 @@ const dummyData = {
             protein: 24,
             categories: "Bowls",
             menuCustomization: ["Avocado", "Sweet Corn", "Salad", "Iced Tea"],
+            bunType: "Rice Base",
+            deliveryFee: 4.49,
+            preparingTime: 18,
         },
         {
+            $id: "item-9",
             name: "Spicy Chicken Sandwich",
             description: "Crispy chicken, spicy sauce, pickles",
             image_url:
@@ -170,8 +207,12 @@ const dummyData = {
                 "Coke",
                 "Choco Lava Cake",
             ],
+            bunType: "Whole Wheat Bread",
+            deliveryFee: 3.99,
+            preparingTime: 12,
         },
         {
+            $id: "item-10",
             name: "Classic Margherita Pizza",
             description: "Tomato, mozzarella, fresh basil",
             image_url:
@@ -182,8 +223,12 @@ const dummyData = {
             protein: 21,
             categories: "Pizzas",
             menuCustomization: ["Extra Cheese", "Olives", "Coke", "Garlic Bread"],
+            bunType: "Thick Crust",
+            deliveryFee: 4.99,
+            preparingTime: 20,
         },
         {
+            $id: "item-11",
             name: "Protein Power Bowl",
             description: "Grilled chicken, quinoa, veggies",
             image_url:
@@ -194,8 +239,12 @@ const dummyData = {
             protein: 38,
             categories: "Bowls",
             menuCustomization: ["Avocado", "Salad", "Sweet Corn", "Iced Tea"],
+            bunType: "Quinoa Base",
+            deliveryFee: 4.49,
+            preparingTime: 20,
         },
         {
+            $id: "item-12",
             name: "Paneer Burrito",
             description: "Paneer cubes, spicy masala, rice, beans",
             image_url:
@@ -206,8 +255,12 @@ const dummyData = {
             protein: 22,
             categories: "Burritos",
             menuCustomization: ["Jalapeños", "Fries", "Garlic Bread", "Coke"],
+            bunType: "Flour Tortilla",
+            deliveryFee: 3.99,
+            preparingTime: 18,
         },
         {
+            $id: "item-13",
             name: "Chicken Club Sandwich",
             description: "Grilled chicken, lettuce, cheese, tomato",
             image_url:
@@ -218,6 +271,9 @@ const dummyData = {
             protein: 31,
             categories: "Sandwiches",
             menuCustomization: ["Bacon", "Tomatoes", "Mozzarella Sticks", "Iced Tea"],
+            bunType: "Artisan Bread",
+            deliveryFee: 3.99,
+            preparingTime: 12,
         },
     ],
 };

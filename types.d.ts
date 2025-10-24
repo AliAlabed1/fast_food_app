@@ -15,6 +15,10 @@ export interface MenuItem{
     protein:number;
     categories:string;
     menuCustomization:string[];
+    description?:string;
+    bunType:string;
+    deliveryFee:number;
+    preparingTime:number;
 }
 
 export interface MenuCustomization{
