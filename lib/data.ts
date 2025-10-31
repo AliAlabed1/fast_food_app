@@ -1,3 +1,5 @@
+import { images } from "@/constants";
+
 const dummyData = {
     categories: [
         { name: "Burgers", description: "Juicy grilled burgers" },
@@ -10,26 +12,26 @@ const dummyData = {
 
     customizations: [
         // Toppings
-        { $id: "custom-1", name: "Extra Cheese", price: 25, type: "topping" },
-        { $id: "custom-2", name: "Jalapeños", price: 20, type: "topping" },
-        { $id: "custom-3", name: "Onions", price: 10, type: "topping" },
-        { $id: "custom-4", name: "Olives", price: 15, type: "topping" },
-        { $id: "custom-5", name: "Mushrooms", price: 18, type: "topping" },
-        { $id: "custom-6", name: "Tomatoes", price: 10, type: "topping" },
-        { $id: "custom-7", name: "Bacon", price: 30, type: "topping" },
-        { $id: "custom-8", name: "Avocado", price: 35, type: "topping" },
+        { $id: "custom-1", name: "Extra Cheese", price: 25, type: "topping", image:images.cheese },
+        { $id: "custom-2", name: "Jalapeños", price: 20, type: "topping",image:images.jalapenos },
+        { $id: "custom-3", name: "Onions", price: 10, type: "topping",image:images.onions },
+        { $id: "custom-4", name: "Olives", price: 15, type: "topping",image:images.olives },
+        { $id: "custom-5", name: "Mushrooms", price: 18, type: "topping",image:images.mushrooms },
+        { $id: "custom-6", name: "Tomatoes", price: 10, type: "topping",image:images.tomatoes },
+        { $id: "custom-7", name: "Bacon", price: 30, type: "topping",image:images.bacon },
+        { $id: "custom-8", name: "Avocado", price: 35, type: "topping",image:images.avocado },
 
         // Sides
-        { $id: "custom-9", name: "Coke", price: 30, type: "side" },
-        { $id: "custom-10", name: "Fries", price: 35, type: "side" },
-        { $id: "custom-11", name: "Garlic Bread", price: 40, type: "side" },
-        { $id: "custom-12", name: "Chicken Nuggets", price: 50, type: "side" },
-        { $id: "custom-13", name: "Iced Tea", price: 28, type: "side" },
-        { $id: "custom-14", name: "Salad", price: 33, type: "side" },
-        { $id: "custom-15", name: "Potato Wedges", price: 38, type: "side" },
-        { $id: "custom-16", name: "Mozzarella Sticks", price: 45, type: "side" },
-        { $id: "custom-17", name: "Sweet Corn", price: 25, type: "side" },
-        { $id: "custom-18", name: "Choco Lava Cake", price: 42, type: "side" },
+        { $id: "custom-9", name: "Coke", price: 30, type: "side", image:images.coke },
+        { $id: "custom-10", name: "Fries", price: 35, type: "side", image:images.fries },
+        { $id: "custom-11", name: "Garlic Bread", price: 40, type: "side", image:images.garlicBread },
+        { $id: "custom-12", name: "Chicken Nuggets", price: 50, type: "side", image:images.chickenNuggets },
+        { $id: "custom-13", name: "Iced Tea", price: 28, type: "side", image:images.icedTea },
+        { $id: "custom-14", name: "Salad", price: 33, type: "side", image:images.salad },
+        { $id: "custom-15", name: "Potato Wedges", price: 38, type: "side", image:images.potatoWedges },
+        { $id: "custom-16", name: "Mozzarella Sticks", price: 45, type: "side", image:images.mozarellaSticks },
+        { $id: "custom-17", name: "Sweet Corn", price: 25, type: "side", image:images.corn },
+        { $id: "custom-18", name: "Choco Lava Cake", price: 42, type: "side", image:images.chocoLavaCake },
     ],
 
     menu: [

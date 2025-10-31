@@ -26,22 +26,30 @@ import burgerOne from "../assets/images/burger-one.png";
 import burgerTwo from "../assets/images/burger-two.png";
 import buritto from "../assets/images/buritto.png";
 import cheese from "../assets/images/cheese.png";
+import chickenNuggets from "../assets/images/Chicken_Nuggets.jpg";
+import chocoLavaCake from "../assets/images/chocoLavaCake.jpg";
+import coke from "../assets/images/coke.png";
 import coleslaw from "../assets/images/coleslaw.png";
+import corn from "../assets/images/corn.png";
 import cucumber from "../assets/images/cucumber.png";
 import emptyState from "../assets/images/empty-state.png";
 import emptyCart from "../assets/images/emptyCart.png";
 import fries from "../assets/images/fries.png";
+import garlicBread from "../assets/images/garlicBread.jpg";
+import icedTea from "../assets/images/IcedTea.jpg";
+import jalapenos from "../assets/images/jalapenos.png";
 import loginGraphic from "../assets/images/login-graphic.png";
 import logo from "../assets/images/logo.png";
 import mozarellaSticks from "../assets/images/mozarella-sticks.png";
 import mushrooms from "../assets/images/mushrooms.png";
+import olives from "../assets/images/olives.jpg";
 import onionRings from "../assets/images/onion-rings.png";
 import onions from "../assets/images/onions.png";
 import pizzaOne from "../assets/images/pizza-one.png";
+import potatoWedges from "../assets/images/potato-wedges.jpg";
 import salad from "../assets/images/salad.png";
 import success from "../assets/images/success.png";
 import tomatoes from "../assets/images/tomatoes.png";
-
 export const CATEGORIES = [
     {
         id: "1",
@@ -166,15 +174,24 @@ export const images = {
     burgerTwo,
     buritto,
     cheese,
+    chickenNuggets,
+    coke,
     coleslaw,
+    corn,
+    chocoLavaCake,
+    potatoWedges,
     cucumber,
     emptyState,
     emptyCart,
     fries,
+    icedTea,
+    garlicBread,
+    jalapenos,
     loginGraphic,
     logo,
     mozarellaSticks,
     mushrooms,
+    olives,
     onionRings,
     onions,
     pizzaOne,

@@ -45,9 +45,11 @@ export default Sentry.wrap(function RootLayout() {
   },[fontsLoaded,error])
 
   useEffect(()=>{
-    fetchAuthenticatedUser();
+  (async()=>{
+    await fetchAuthenticatedUser();
     console.log('isAuthenticated',isAuthenticated)
-  },[isAuthenticated])
+  })()
+  },[])
 
   if(!fontsLoaded || isLoading ) return null;
   

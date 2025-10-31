@@ -1,4 +1,3 @@
-import { images } from '@/constants';
 import Feather from '@expo/vector-icons/Feather';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
@@ -9,7 +8,7 @@ interface CustomizationCardProps {
     name: string;
     price: number;
     type: string;
-    image_url?: string;
+    image_url: string;
   };
   onAdd: (customization: any) => void;
   isSelected?: boolean;
@@ -33,7 +32,7 @@ const CustomizationCard: React.FC<CustomizationCardProps> = ({
       {/* Image Container - White Background */}
       <View className="flex-1  justify-center items-center p-3 rounded-3xl">
         <Image
-          source={images.cucumber}
+          source={{uri: customization.image_url}}
           className="w-20 h-20 "
           resizeMode="cover"
         />

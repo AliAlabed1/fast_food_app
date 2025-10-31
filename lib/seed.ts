@@ -1,4 +1,3 @@
-import { File } from "expo-file-system";
 import { ID } from "react-native-appwrite";
 
 import { MenuItem } from "@/types";
@@ -14,6 +13,7 @@ interface Customization {
     name: string;
     price: number;
     type: "topping" | "side" | "size" | "crust" | string; // extend as needed
+    image: string;
 }
 
 
@@ -64,11 +64,14 @@ export async function uploadImageToStorage(imageUrl: string) {
   
     const blob = await res.blob();
   
-    // ✅ Pass Blob directly (works on web)
+    // Convert blob to File object for proper typing
+    const fileObj = new File([blob], filename, { type: blob.type || "image/jpeg" });
+    
+    // ✅ Pass File directly (works on web)
     const file = await storage.createFile(
       appwriteConfig.assetBucket,
       ID.unique(),
-      blob as unknown as File // TS types sometimes require File; cast is fine in browser
+      fileObj as any // react-native-appwrite types expect different format, but File works at runtime
     );
   
     // Return a view URL (or keep the fileId)
@@ -77,6 +80,54 @@ export async function uploadImageToStorage(imageUrl: string) {
     return fileUrl;
   }
 
+export async function uploadLocalAssetToStorage(asset: string | any): Promise<string> {
+    // Handle local asset imports - in web context these resolve to URL strings
+    // If it's already a string URL, use it directly
+    // If it's an object with uri property, extract the URI
+    let assetUrl: string;
+    
+    if (typeof asset === "string") {
+        assetUrl = asset;
+    } else if (asset && typeof asset === "object" && "uri" in asset) {
+        assetUrl = asset.uri;
+    } else if (asset && typeof asset === "object" && "default" in asset) {
+        // Handle default exports from module imports
+        assetUrl = typeof asset.default === "string" ? asset.default : asset.default?.uri || String(asset.default);
+    } else {
+        // Fallback: try to convert to string (works for URL objects)
+        assetUrl = String(asset);
+    }
+
+    // Fetch the local asset (works for web where assets resolve to URLs)
+    const res = await fetch(assetUrl, { cache: "no-store" });
+    if (!res.ok) {
+        throw new Error(`Failed to load local asset: ${res.status} - ${assetUrl}`);
+    }
+    
+    const blob = await res.blob();
+    
+    // Determine file extension from asset URL for proper filename
+    const urlExtension = assetUrl.split('.').pop()?.split('?')[0] || 'png';
+    const mimeType = urlExtension === 'jpg' || urlExtension === 'jpeg' ? 'image/jpeg' : 
+                     urlExtension === 'png' ? 'image/png' : 
+                     'image/jpeg';
+    const filename = `customization-${Date.now()}.${urlExtension}`;
+    
+    // Convert blob to File object for proper typing
+    const fileObj = new File([blob], filename, { type: blob.type || mimeType });
+    
+    // Upload to Appwrite storage
+    const file = await storage.createFile(
+        appwriteConfig.assetBucket,
+        ID.unique(),
+        fileObj as any // react-native-appwrite types expect different format, but File works at runtime
+    );
+    
+    // Construct and return the file URL
+    const fileUrl = `${appwriteConfig.endpoint}/storage/buckets/${appwriteConfig.assetBucket}/files/${file.$id}/view?project=${appwriteConfig.projectId}`;
+    return fileUrl;
+}
+
 async function seed(): Promise<void> {
     // 1. Clear all
     await clearAll(appwriteConfig.categoriesTable);
@@ -84,7 +135,7 @@ async function seed(): Promise<void> {
     await clearAll(appwriteConfig.menuTable);
     await clearAll(appwriteConfig.menu_customizationTable);
     await clearStorage();
-
+    console.log('cleared all')
     // 2. Create Categories
     const categoryMap: Record<string, string> = {};
     for (const cat of data.categories) {
@@ -100,6 +151,9 @@ async function seed(): Promise<void> {
     // 3. Create Customizations
     const customizationMap: Record<string, string> = {};
     for (const cus of data.customizations) {
+        const uploadedImage = await uploadLocalAssetToStorage(cus.image);
+        console.log('uploadedImage in customizations', uploadedImage);
+        
         const doc = await databases.createDocument(
             appwriteConfig.databaseId,
             appwriteConfig.customizationTable,
@@ -108,6 +162,7 @@ async function seed(): Promise<void> {
                 name: cus.name,
                 price: cus.price,
                 type: cus.type,
+                image_url: uploadedImage,
             }
         );
         customizationMap[cus.name] = doc.$id;

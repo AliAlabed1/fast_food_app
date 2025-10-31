@@ -6,7 +6,7 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CustomizationCard from '../components/CustomizationCard';
 import Rating from '../components/Rating';
-import { getMenuCustomizations } from '../lib/appwrite';
+import { getCategory, getMenuCustomizations, getMenuItem } from '../lib/appwrite';
 import useAppWrite from '../lib/useAppWrite';
 import { useCartStore } from '../store/cart.store';
 interface Customization {
@@ -20,20 +20,13 @@ const ItemDetails = () => {
   const { id } = useLocalSearchParams<{ id: string }>();
   const [selectedCustomizations, setSelectedCustomizations] = useState<Customization[]>([]);
   const [quantity, setQuantity] = useState(1);
- 
+  const [category,setCategory] = useState<string | null>(null);
   const { addItem } = useCartStore();
 
   // Fetch menu item data from dummy data for now
   const { data: menuItem, loading: itemLoading } = useAppWrite({
-    fn: async () => {
-      const dummyData = require('../lib/data').default;
-      // Add $id to dummy data items for consistency
-      const menuWithIds = dummyData.menu.map((item: any, index: number) => ({
-        ...item,
-        $id: item.$id || `item-${index}`
-      }));
-      return menuWithIds.find((item: any) => item.$id === id) || menuWithIds[0];
-    }
+    fn: () => getMenuItem(id),
+    params: { menuId: id }
   });
 
   // Fetch customizations
@@ -41,6 +34,18 @@ const ItemDetails = () => {
     fn: () => getMenuCustomizations(id),
     params: { menuId: id }
   });
+
+  useEffect(()=>{
+    if(menuItem){
+      (async()=>{
+        const category = await getCategory(menuItem.categories);
+        if(category){
+          setCategory(category.name);
+        }
+      })()
+    }
+  },[menuItem]);
+  
 
   
   const toppings = React.useMemo(() => {
@@ -135,7 +140,7 @@ const ItemDetails = () => {
         <View className='flex flex-row gap-5 items-center justify-between'>
           <View className='flex flex-col gap-3 items-start justify-center'>
             <Text className="text-2xl font-bold text-dark-100">{menuItem.name}</Text>
-            <Text className="paragraph-regular text-gray-100">{menuItem.categories}</Text>
+            <Text className="paragraph-regular text-gray-100">{category}</Text>
             <View className="mb-4">
               <Rating rating={menuItem.rating} size={16} showRating={true} />
             </View>
@@ -154,7 +159,7 @@ const ItemDetails = () => {
           <View className="items-center py-6">
             <Image 
               source={{ uri: menuItem.image_url }} 
-              className="w-50 h-50 rounded-lg mr-5"
+              className="w-[200px] h-[200px] rounded-lg mr-5"
               resizeMode="cover"
             />
           </View>
@@ -210,15 +215,40 @@ const ItemDetails = () => {
       </ScrollView>
 
       {/* Add to Cart Button */}
-      <View className="mt-5">
-        <TouchableOpacity
-          onPress={handleAddToCart}
-          className="bg-primary py-4 rounded-lg items-center"
-        >
-          <Text className="text-white text-lg font-semibold">
-            Add to Cart - ${calculateTotalPrice().toFixed(2)}
-          </Text>
-        </TouchableOpacity>
+      <View className="mt-5 bg-white rounded-lg p-5 px-8"  >
+        <View className='flex flex-row gap-2 w-full items-center justify-between'>
+          <View className='flex flex-row gap-3 items-center justify-center'>
+            <TouchableOpacity
+              onPress={()=>setQuantity(quantity + 1)}
+              className="text-primary bg-primary/10 rounded-lg p-2"
+            >
+              <Text className="text-primary text-lg font-semibold text-center">
+                <Feather name="plus" size={24}  />
+              </Text>
+            </TouchableOpacity>
+            <Text className="text-black text-lg font-semibold text-center">{quantity}</Text>
+            <TouchableOpacity
+              onPress={()=>setQuantity(quantity - 1)}
+              className="text-primary bg-primary/10 rounded-lg p-2"
+            >
+              <Text className="text-primary text-lg font-semibold text-center">
+                <Feather name="minus" size={24}  />
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            onPress={handleAddToCart}
+            className="bg-primary p-4 px-8 rounded-full items-center"
+          >
+            <View className='flex flex-row gap-1 items-center justify-center'>
+              <Feather name="shopping-cart" size={24} color="white" />
+              <Text className="text-white text-lg font-semibold">Add to Cart</Text>
+              <Text className="text-white text-lg font-semibold">
+                <Text className="text-primary mr-2">$</Text>{calculateTotalPrice().toFixed(2)}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );

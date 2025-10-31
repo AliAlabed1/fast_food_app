@@ -106,6 +106,20 @@ export const getCategories = async()=>{
     }
 }
 
+export const getCategory = async(categoryId:string)=>{
+    try {
+        const category = await databases.getDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.categoriesTable,
+            categoryId
+        )
+        if(!category) throw Error;
+        return category;
+    }
+    catch (error) {
+        throw new Error(error as string)
+    }
+}
 export const getMenuCustomizations = async(menuId:string)=>{
     try {
         if(!menuId ) return [];
@@ -141,5 +155,21 @@ export const getMenuCustomizations = async(menuId:string)=>{
         // Return dummy data for now
         const dummyData = require('./data').default;
         return dummyData.customizations;
+    }
+}
+
+export const getMenuItem = async(menuId:string)=>{
+    try {
+        console.log('we are in getting menue')
+        const menuItem = await databases.getDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.menuTable,
+            menuId
+        )
+        if(!menuItem) throw Error;
+        console.log('menuItem:',menuItem)
+        return menuItem;
+    } catch (error) {
+        throw new Error(error as string)
     }
 }
