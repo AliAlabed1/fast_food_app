@@ -28,16 +28,13 @@ import buritto from "../assets/images/buritto.png";
 import cheese from "../assets/images/cheese.png";
 import chickenNuggets from "../assets/images/Chicken_Nuggets.jpg";
 import chocoLavaCake from "../assets/images/chocoLavaCake.jpg";
-import coke from "../assets/images/coke.png";
 import coleslaw from "../assets/images/coleslaw.png";
-import corn from "../assets/images/corn.png";
 import cucumber from "../assets/images/cucumber.png";
 import emptyState from "../assets/images/empty-state.png";
 import emptyCart from "../assets/images/emptyCart.png";
 import fries from "../assets/images/fries.png";
 import garlicBread from "../assets/images/garlicBread.jpg";
 import icedTea from "../assets/images/IcedTea.jpg";
-import jalapenos from "../assets/images/jalapenos.png";
 import loginGraphic from "../assets/images/login-graphic.png";
 import logo from "../assets/images/logo.png";
 import mozarellaSticks from "../assets/images/mozarella-sticks.png";
@@ -175,9 +172,7 @@ export const images = {
     buritto,
     cheese,
     chickenNuggets,
-    coke,
     coleslaw,
-    corn,
     chocoLavaCake,
     potatoWedges,
     cucumber,
@@ -186,7 +181,6 @@ export const images = {
     fries,
     icedTea,
     garlicBread,
-    jalapenos,
     loginGraphic,
     logo,
     mozarellaSticks,

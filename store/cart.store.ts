@@ -77,6 +77,53 @@ export const useCartStore = create<CartStore>((set, get) => ({
         });
     },
 
+    updateItem: (id, oldCustomizations = [], newCustomizations = [], newQuantity) => {
+        const items = get().items;
+        const itemIndex = items.findIndex(
+            (i) =>
+                i.id === id &&
+                areCustomizationsEqual(i.customizations ?? [], oldCustomizations)
+        );
+
+        if (itemIndex === -1) return;
+
+        const item = items[itemIndex];
+        const updatedItem = {
+            ...item,
+            customizations: newCustomizations,
+            quantity: newQuantity !== undefined ? newQuantity : item.quantity,
+        };
+
+        // Check if an item with the same id and new customizations already exists (but different from current item)
+        const existingWithNewCustomizations = items.find(
+            (i, idx) =>
+                idx !== itemIndex &&
+                i.id === id &&
+                areCustomizationsEqual(i.customizations ?? [], newCustomizations)
+        );
+
+        if (existingWithNewCustomizations && !areCustomizationsEqual(oldCustomizations, newCustomizations)) {
+            // If different customizations, merge quantities and remove old item
+            set({
+                items: items
+                    .filter((i, idx) => idx !== itemIndex)
+                    .map((i) =>
+                        i.id === id &&
+                        areCustomizationsEqual(i.customizations ?? [], newCustomizations)
+                            ? { ...i, quantity: i.quantity + updatedItem.quantity }
+                            : i
+                    ),
+            });
+        } else {
+            // Update in place
+            set({
+                items: items.map((i, idx) =>
+                    idx === itemIndex ? updatedItem : i
+                ),
+            });
+        }
+    },
+
     clearCart: () => set({ items: [] }),
 
     getTotalItems: () =>

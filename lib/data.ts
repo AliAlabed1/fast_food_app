@@ -13,7 +13,7 @@ const dummyData = {
     customizations: [
         // Toppings
         { $id: "custom-1", name: "Extra Cheese", price: 25, type: "topping", image:images.cheese },
-        { $id: "custom-2", name: "Jalapeños", price: 20, type: "topping",image:images.jalapenos },
+        { $id: "custom-2", name: "Jalapeños", price: 20, type: "topping",image:images.cheese },
         { $id: "custom-3", name: "Onions", price: 10, type: "topping",image:images.onions },
         { $id: "custom-4", name: "Olives", price: 15, type: "topping",image:images.olives },
         { $id: "custom-5", name: "Mushrooms", price: 18, type: "topping",image:images.mushrooms },
@@ -22,7 +22,7 @@ const dummyData = {
         { $id: "custom-8", name: "Avocado", price: 35, type: "topping",image:images.avocado },
 
         // Sides
-        { $id: "custom-9", name: "Coke", price: 30, type: "side", image:images.coke },
+        { $id: "custom-9", name: "Coke", price: 30, type: "side", image:images.fries },
         { $id: "custom-10", name: "Fries", price: 35, type: "side", image:images.fries },
         { $id: "custom-11", name: "Garlic Bread", price: 40, type: "side", image:images.garlicBread },
         { $id: "custom-12", name: "Chicken Nuggets", price: 50, type: "side", image:images.chickenNuggets },
@@ -30,7 +30,7 @@ const dummyData = {
         { $id: "custom-14", name: "Salad", price: 33, type: "side", image:images.salad },
         { $id: "custom-15", name: "Potato Wedges", price: 38, type: "side", image:images.potatoWedges },
         { $id: "custom-16", name: "Mozzarella Sticks", price: 45, type: "side", image:images.mozarellaSticks },
-        { $id: "custom-17", name: "Sweet Corn", price: 25, type: "side", image:images.corn },
+        { $id: "custom-17", name: "Sweet Corn", price: 25, type: "side", image:images.cheese },
         { $id: "custom-18", name: "Choco Lava Cake", price: 42, type: "side", image:images.chocoLavaCake },
     ],
 

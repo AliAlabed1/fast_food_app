@@ -36,6 +36,7 @@ export interface CartCustomization{
     id:string;
     name:string;
     price:number;
+    type?:string;
 }
 
 export interface CartItemType{
@@ -53,6 +54,7 @@ export interface CartStore{
     removeItem:(id:string,customizations?:CartCustomization[])=>void;
     increaseQty:(id:string,customizations?:CartCustomization[])=>void;
     decreaseQty:(id:string,customizations?:CartCustomization[])=>void;
+    updateItem:(id:string,oldCustomizations:CartCustomization[],newCustomizations:CartCustomization[],newQuantity?:number)=>void;
     clearCart:()=>void;
     getTotalItems:()=>number;
     getTotalPrice:()=>number;

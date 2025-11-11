@@ -1,3 +1,4 @@
+import * as FileSystem from 'expo-file-system/legacy';
 import { Account, Avatars, Client, Databases, ID, Query, Storage } from 'react-native-appwrite';
 import { SignInForm } from '../app/(auth)/sign-in';
 import { SignUpForm } from '../app/(auth)/sign-up';
@@ -171,5 +172,75 @@ export const getMenuItem = async(menuId:string)=>{
         return menuItem;
     } catch (error) {
         throw new Error(error as string)
+    }
+}
+
+type RNFile = { uri: string; name: string; type: string; size: number };
+
+export const uploadAvatarImage = async (imageUri: string): Promise<string> => {
+  try {
+    // 1) Ensure the file exists
+    const originalInfo = await FileSystem.getInfoAsync(imageUri);
+    if (!originalInfo.exists) throw new Error('File does not exist');
+
+    // 2) Normalize Android content:// URIs to file:// by copying into cache
+    let uri = imageUri;
+    if (uri.startsWith('content://')) {
+      const dest = `${FileSystem.cacheDirectory}upload_${Date.now()}.jpg`;
+      await FileSystem.copyAsync({ from: uri, to: dest });
+      uri = dest;
+    }
+
+    // Refresh file info in case the file was copied
+    const fileInfo = uri === imageUri ? originalInfo : await FileSystem.getInfoAsync(uri);
+    if (!fileInfo.exists || typeof fileInfo.size !== 'number') {
+      throw new Error('Unable to determine file size for upload');
+    }
+
+    // 3) Build RN file payload
+    const name = uri.split('/').pop() ?? `avatar_${Date.now()}.jpg`;
+    const ext = name.split('.').pop()?.toLowerCase();
+    const type: string =
+      ext === 'png' ? 'image/png'
+      : ext === 'webp' ? 'image/webp'
+      : 'image/jpeg';
+
+    const fileParam: RNFile = { uri, name, type, size: fileInfo.size };
+
+    // 4) Upload
+    const created = await storage.createFile({
+      bucketId: appwriteConfig.assetBucket,
+      fileId: ID.unique(),
+      file: fileParam,
+    });
+
+    if (!created?.$id) throw new Error('Upload failed: no file id returned');
+
+    // 5) Build a view URL (respects auth/session; use preview if you need resizing)
+    const url = storage.getFileViewURL(appwriteConfig.assetBucket, created.$id);
+    return url.toString();
+  } catch (error: any) {
+    console.log('error uploading avatar image', error);
+    throw new Error(error?.message ?? String(error));
+  }
+}; 
+
+export const updateUserProfile = async (userId: string, updates: { name?: string; avatar?: string }): Promise<any> => {
+    try {
+        const updateData: any = {};
+        if (updates.name) updateData.name = updates.name;
+        if (updates.avatar) updateData.avatar = updates.avatar;
+        
+        const updatedUser = await databases.updateDocument(
+            appwriteConfig.databaseId,
+            appwriteConfig.usedTableId,
+            userId,
+            updateData
+        );
+        
+        return updatedUser;
+    } catch (error) {
+        console.log('error updating user profile', error);
+        throw new Error(error as string);
     }
 }

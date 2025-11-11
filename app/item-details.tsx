@@ -81,7 +81,8 @@ const ItemDetails = () => {
     const cartCustomizations = selectedCustomizations.map(c => ({
       id: c.$id,
       name: c.name,
-      price: c.price
+      price: c.price,
+      type: c.type
     }));
 
     addItem({
